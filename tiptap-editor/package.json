@@ -1,0 +1,26 @@
+{
+  "name": "tiptap-editor",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^5.3.4"
+  },
+  "dependencies": {
+    "@tiptap/core": "^2.5.8",
+    "@tiptap/extension-highlight": "^2.5.8",
+    "@tiptap/extension-horizontal-rule": "^2.5.8",
+    "@tiptap/extension-image": "^2.5.8",
+    "@tiptap/extension-link": "^2.5.8",
+    "@tiptap/extension-text": "^2.5.8",
+    "@tiptap/extension-text-align": "^2.5.8",
+    "@tiptap/extension-underline": "^2.5.8",
+    "@tiptap/react": "^2.5.8",
+    "@tiptap/starter-kit": "^2.5.8"
+  }
+}
