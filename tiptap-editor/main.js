@@ -6,62 +6,9 @@ import { Highlight } from '@tiptap/extension-highlight';
 import { TextAlign } from '@tiptap/extension-text-align';
 import { Text } from '@tiptap/extension-text';
 import { HorizontalRule } from '@tiptap/extension-horizontal-rule';
-import { CustomDiv } from './plugins/div';
-import { CustomParagraph } from './plugins/paragraph';
-import { CustomLink } from './plugins/link';
-import { CustomI } from './plugins/i';
+import { Image } from '@tiptap/extension-image'
 import { Video } from './plugins/video';
-import Image from '@tiptap/extension-image';
-import { Node, mergeAttributes } from '@tiptap/core';
-import { NodeViewWrapper, NodeViewContent } from '@tiptap/react';
-
-const CustomImage = Node.create({
-  name: 'customImage',
-  
-  // Define the schema for the custom image node
-  addAttributes() {
-    return {
-      src: {
-        default: null,
-      },
-      alt: {
-        default: null,
-      },
-    };
-  },
-
-  parseHTML() {
-    return [
-      {
-        tag: 'img',
-      },
-    ];
-  },
-
-  renderHTML({ HTMLAttributes }) {
-    return ['img', mergeAttributes(HTMLAttributes)];
-  },
-
-  addNodeView() {
-    return ({ node, updateAttributes, deleteNode }) => {
-      return {
-        type: 'node',
-        content: [
-          {
-            type: 'element',
-            tagName: 'img',
-            attributes: {
-              src: node.attrs.src,
-              alt: node.attrs.alt,
-            },
-          },
-          // Additional custom elements or controls can be added here
-        ],
-        dom: document.createElement('div'),
-      };
-    };
-  },
-});
+import {CustomMediaNode} from './plugins/CustomMediaNode';
 
 const editor = new Editor({
   element: document.querySelector('#new-content'),
@@ -76,12 +23,8 @@ const editor = new Editor({
     Text,
     HorizontalRule,
     Image,
-    CustomDiv,
-    CustomParagraph,
-    CustomLink,
-    CustomI,
-    CustomImage,
-    Video
+    Video,
+    CustomMediaNode
   ],
   content: setContentHtml(),
 });
@@ -91,6 +34,33 @@ function setContentHtml (){
   document.querySelector('#new-content').innerHTML = "";
   return content;
 }
+
+document.querySelector('#insert-custom-image').addEventListener('click', () => {
+  const htmlContent = `
+    <div id="img9766412" class="media-container image uploadingArea" contenteditable="false">
+      <div class="media-editor" style="display: none;">
+        <!-- Your content -->
+      </div>
+      <div>
+        <img src="https://my.funnelpages.com/user-data/gallery/24/96803.png" class="image" alt="" data-imglink="">
+        <div class="media-container-overlay" contenteditable="false">
+          <div class="media-container-overlay-inner" contenteditable="false">
+            <a href="#" class="gallerypopup upload-img dynamic-gallery parent-window">
+              <i class="glyphicon glyphicon-edit"></i> Update
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>`;
+
+  editor.chain().focus().insertContent({
+    type: 'customMedia',
+    attrs: {
+      content: htmlContent,
+    },
+  }).run();
+});
+
 
 document.querySelector('#bold').addEventListener('click', () => {
   editor.chain().focus().toggleBold().run();
@@ -354,3 +324,26 @@ editor.on('selectionUpdate', ({ editor }) => {
     console.log('Selection position - x:', coords?.x, 'y:', coords?.y);
   }
 });
+
+
+
+
+// editor.on('selectionUpdate', () => {
+//   const { state } = editor;
+//   const { selection, doc } = state;
+//   const { from, to } = selection;
+
+//   doc.nodesBetween(from, to, (node, pos) => {
+//     if (node.type.name === 'image') {
+//       const img = editor.view.dom.querySelector(`img[src="${node.attrs.src}"]`);
+//       if (img) {
+//         img.classList.add('selected-image');
+//         console.log('image selected');
+//       }
+//     } else {
+//       const imgs = editor.view.dom.querySelectorAll('img.selected-image');
+//       imgs.forEach(img => img.classList.remove('selected-image'));
+//       console.log('image unselected');
+//     }
+//   });
+// });
