@@ -25,7 +25,7 @@ export const CustomMediaNode = Node.create({
   addNodeView() {
     return ({ node }) => {
       const dom = document.createElement('div');
-      dom.classList.add('media-container');
+      dom.classList.add('media-wrapper');
       dom.innerHTML = node.attrs.content;
       return {
         dom,
