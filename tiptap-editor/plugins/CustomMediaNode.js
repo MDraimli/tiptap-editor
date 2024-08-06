@@ -11,6 +11,9 @@ export const CustomMediaNode = Node.create({
     return [
       {
         tag: 'div.media-container',
+        getAttrs: (dom) => ({
+          content: dom.outerHTML,
+        }),
       },
     ];
   },
@@ -38,3 +41,4 @@ export const CustomMediaNode = Node.create({
     };
   },
 });
+
