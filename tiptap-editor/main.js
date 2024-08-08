@@ -8,9 +8,13 @@ import { Text } from '@tiptap/extension-text';
 import { HorizontalRule } from '@tiptap/extension-horizontal-rule';
 import { Image } from '@tiptap/extension-image'
 import { Video } from './plugins/video';
-import {CustomMediaNode} from './plugins/CustomMediaNode';
-import {TemplateContentNode} from './plugins/TemplateContentNode';
-import {ButtonWrapperNode} from './plugins/ButtonWrapperNode';
+import { CustomMediaNode } from './plugins/CustomMediaNode';
+import { TemplateContentNode } from './plugins/TemplateContentNode';
+import { ButtonWrapperNode } from './plugins/ButtonWrapperNode';
+import { Table } from '@tiptap/extension-table';
+import { TableRow } from '@tiptap/extension-table-row';
+import { TableCell } from '@tiptap/extension-table-cell';
+import { TableHeader } from '@tiptap/extension-table-header';
 
 const editor = new Editor({
   element: document.querySelector('#new-content'),
@@ -28,16 +32,66 @@ const editor = new Editor({
     Video,
     CustomMediaNode,
     TemplateContentNode,
-    ButtonWrapperNode
+    ButtonWrapperNode,
+    Table.configure({
+      resizable: true,
+    }),
+    TableRow,
+    TableCell,
+    TableHeader,
   ],
   content: setContentHtml(),
 });
 
-function setContentHtml (){
+function setContentHtml() {
   const content = document.querySelector('#new-content').innerHTML;
   document.querySelector('#new-content').innerHTML = "";
   return content;
 }
+
+
+
+// Add a button to create a table
+const createTableButton = document.createElement('button');
+createTableButton.textContent = 'Create Table';
+createTableButton.addEventListener('click', () => {
+  editor.chain().focus().insertTable({ rows: 3, cols: 3, withHeaderRow: true }).run();
+});
+document.body.appendChild(createTableButton);
+
+// Add a button to add a row
+const addRowButton = document.createElement('button');
+addRowButton.textContent = 'Add Row';
+addRowButton.addEventListener('click', () => {
+  editor.chain().focus().addRowAfter().run();
+});
+document.body.appendChild(addRowButton);
+
+// Add a button to add a column
+const addColumnButton = document.createElement('button');
+addColumnButton.textContent = 'Add Column';
+addColumnButton.addEventListener('click', () => {
+  editor.chain().focus().addColumnAfter().run();
+});
+document.body.appendChild(addColumnButton);
+
+// Add a button to delete a row
+const deleteRowButton = document.createElement('button');
+deleteRowButton.textContent = 'Delete Row';
+deleteRowButton.addEventListener('click', () => {
+  editor.chain().focus().deleteRow().run();
+});
+document.body.appendChild(deleteRowButton);
+
+// Add a button to delete a column
+const deleteColumnButton = document.createElement('button');
+deleteColumnButton.textContent = 'Delete Column';
+deleteColumnButton.addEventListener('click', () => {
+  editor.chain().focus().deleteColumn().run();
+});
+document.body.appendChild(deleteColumnButton);
+
+
 
 document.querySelector('#insert-custom-content').addEventListener('click', () => {
   const htmlContent = `
