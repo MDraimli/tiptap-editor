@@ -17,10 +17,12 @@ import { TableCell } from '@tiptap/extension-table-cell';
 import { TableHeader } from '@tiptap/extension-table-header';
 
 const editor = new Editor({
-  element: document.querySelector('#new-content'),
+  element: document.querySelector('#content'),
   extensions: [
     StarterKit,
-    Link,
+    Link.configure({
+      openOnClick: false
+    }),
     Underline,
     Highlight,
     TextAlign.configure({
@@ -44,8 +46,8 @@ const editor = new Editor({
 });
 
 function setContentHtml() {
-  const content = document.querySelector('#new-content').innerHTML;
-  document.querySelector('#new-content').innerHTML = "";
+  const content = document.querySelector('#content').innerHTML;
+  document.querySelector('#content').innerHTML = "";
   return content;
 }
 
