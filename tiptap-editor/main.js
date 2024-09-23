@@ -16,7 +16,7 @@ import { TableRow } from '@tiptap/extension-table-row';
 import { TableCell } from '@tiptap/extension-table-cell';
 import { TableHeader } from '@tiptap/extension-table-header';
 
-const editor = new Editor({
+const editor = window.editor = new Editor({
   element: document.querySelector('#content'),
   extensions: [
     StarterKit,
