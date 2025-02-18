@@ -53,6 +53,8 @@ function setContentHtml() {
 
 
 
+/// to be deleted before build
+
 // Add a button to create a table
 const createTableButton = document.createElement('button');
 createTableButton.textContent = 'Create Table';
@@ -435,6 +437,14 @@ editor.on('selectionUpdate', ({ editor }) => {
   }
 });
 
+
+
+editor.view.dom.addEventListener('paste', (event) => {
+  console.log('Paste event:', event);
+  let plainText = event.clipboardData.getData('text/plain')
+  plainText = plainText.replace(/\s+/g, ' ')
+  event.clipboardData.setData('text/plain', plainText)
+})
 
 
 

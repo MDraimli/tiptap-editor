@@ -24,6 +24,17 @@ export const ButtonWrapperNode = Node.create({
 
   addNodeView() {
     return ({ node }) => {
+
+      /// check if node.attrs.content has class button-wrapper
+      if (node.attrs.content.includes('button-wrapper')) {
+        /// remove the class button-wrapper element
+        const dom = document.createElement('div');
+        dom.innerHTML = node.attrs.content;
+        return {
+          dom: dom.firstChild,
+        };
+      }
+
       const dom = document.createElement('div');
       dom.classList.add('button-wrapper');
       dom.innerHTML = node.attrs.content;
