@@ -15,6 +15,7 @@ import { Table } from '@tiptap/extension-table';
 import { TableRow } from '@tiptap/extension-table-row';
 import { TableCell } from '@tiptap/extension-table-cell';
 import { TableHeader } from '@tiptap/extension-table-header';
+import {IframeNode} from './plugins/iframes';
 
 const editor = window.editor = new Editor({
   element: document.querySelector('#content'),
@@ -32,6 +33,7 @@ const editor = window.editor = new Editor({
     HorizontalRule,
     Image,
     Video,
+    IframeNode,
     CustomMediaNode,
     TemplateContentNode,
     ButtonWrapperNode,
@@ -52,6 +54,8 @@ function setContentHtml() {
 }
 
 
+/// to run npm run dev
+/// to run npm run build
 
 /// to be deleted before build
 
